@@ -1,0 +1,33 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.4.0
+    hooks:
+      - id: check-added-large-files # prevents giant files from being committed.
+      - id: check-case-conflict # checks for files that would conflict in case-insensitive filesystems.
+      - id: check-merge-conflict # checks for files that contain merge conflict strings.
+      - id: check-yaml # checks yaml files for parseable syntax.
+      - id: detect-private-key # detects the presence of private keys.
+      - id: end-of-file-fixer # ensures that a file is either empty, or ends with one newline.
+      - id: fix-byte-order-marker # removes utf-8 byte order marker.
+      - id: mixed-line-ending # replaces or checks mixed line ending.
+      - id: requirements-txt-fixer # sorts entries in requirements.txt.
+      # - id: trailing-whitespace # trims trailing whitespace.
+
+  - repo: https://github.com/pre-commit/mirrors-clang-format
+    rev: v16.0.0
+    hooks:
+      - id: clang-format
+        files: '\.(cpp|cxx|h|hpp)$'
+  
+  - repo: local
+    hooks:
+      - id: check-cpp-file-naming
+        language: python
+        name: check solution file name format
+        entry: python .pre-commit/check-cpp-file-naming.py
+        files: 'solution.*\.(py|cpp|java)$'
+      - id: enumarate-case-in-spec
+        language: python
+        name: enumerate case in spec.cpp
+        entry: python .pre-commit/enumarate-case-in-spec.py
+        files: 'spec.cpp$'
