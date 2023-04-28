@@ -1,0 +1,37 @@
+# Ignore all
+*
+
+# Unignore all with extensions
+!*.*
+
+# Unignore all dirs
+!*/
+
+# Ignore all backups
+*~
+
+# Ignore all testcases
+tc/
+
+# Ignore .DS_Store from mac
+.DS_Store
+
+# Ignore .exe from Windows
+*.exe
+
+# Ignore class files from java
+*.class
+
+# Ignore vscode
+.vscode
+
+# Ignore cph
+.cph
+*.bin
+
+# Ignore file with spaces
+**\ **
+
+# Ignore python cache
+__py_cache__
+__pycache__
