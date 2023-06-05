@@ -40,7 +40,7 @@ installPreCommit() {
 }
 
 while true; do
-  read -p "Do you want to install pre-commit? (Y/n) " yn
+  read -p "Do you want to download and install Python and pre-commit? (Y/n) " yn
   case $yn in
       [Yy]* ) installPreCommit; break;;
       [Nn]* ) break;;
@@ -61,7 +61,7 @@ installTcframe() {
 }
 
 while true; do
-  read -p "Do you want to install tcframe? (Y/n) " yn
+  read -p "Do you want to download and install tcframe? (Y/n) " yn
   case $yn in
       [Yy]* ) installTcframe; break;;
       [Nn]* ) break;;
@@ -72,11 +72,10 @@ done
 installTcrand() {
   run_cmd "git clone https://github.com/afaji/tcrand $HOME/tcrand"
   run_cmd "cp -r $HOME/tcrand/include/tcrand $HOME/tcframe/include"
-  need_reload=1
 }
 
 while true; do
-  read -p "Do you want to install tcrand? (Y/n) " yn
+  read -p "Do you want to download and install tcrand? (Y/n) " yn
   case $yn in
       [Yy]* ) installTcrand; break;;
       [Nn]* ) break;;
@@ -87,5 +86,7 @@ done
 if [ $need_reload -eq 1 ]
 then
   echo "Installation complete! Please reload the terminal session."
+else
+  echo "Installation complete!"
 fi
 # ======================
