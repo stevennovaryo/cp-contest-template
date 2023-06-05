@@ -6,7 +6,7 @@ continue_or_exit() {
     case $yn in
         [Yy]* ) break;;
         [Nn]* ) exit; break;;
-        * ) echo "Please answer yes or no.";;
+        * ) ;;
     esac
   done
 }
@@ -26,12 +26,12 @@ run_cmd() {
   fi
 }
 
-# initialize
+# Install Git and GCC
 run_cmd "sudo apt-get install -y git"
 run_cmd "sudo apt-get install -y gcc"
 # ======================
 
-# installing python stuff
+# Install Python and Pre-commit
 installPreCommit() {
   run_cmd "sudo apt-get install -y python3"
   run_cmd "sudo apt-get install -y python-is-python3"
@@ -40,31 +40,53 @@ installPreCommit() {
 }
 
 while true; do
-  read -p "Do you want to install precommit? (Y/n) " yn
+  read -p "Do you want to download and install Python and pre-commit? (Y/n) " yn
   case $yn in
       [Yy]* ) installPreCommit; break;;
       [Nn]* ) break;;
-      * ) echo "Please answer yes or no.";;
+      * ) ;;
   esac
 done
 # ======================
 
-# Installing tcframe
+# Installing tcframe and tcrand
+
+need_reload=0
+
 installTcframe() {
   run_cmd "git clone https://github.com/ia-toki/tcframe $HOME/tcframe"
-  run_cmd "git clone https://github.com/afaji/tcrand $HOME/tcrand"
-  run_cmd "cp -r $HOME/tcrand/include/tcrand $HOME/tcframe/include"
   echo "export TCFRAME_HOME=~/tcframe" >> ~/.bashrc
   echo "alias tcframe=\$TCFRAME_HOME/scripts/tcframe" >> ~/.bashrc
-  echo "Installation complete! Please reload the windows."
+  need_reload=1
 }
 
 while true; do
-  read -p "Do you want to install tcframe and tcrand? (Y/n) " yn
+  read -p "Do you want to download and install tcframe? (Y/n) " yn
   case $yn in
       [Yy]* ) installTcframe; break;;
       [Nn]* ) break;;
-      * ) echo "Please answer yes or no.";;
+      * ) ;;
   esac
 done
+
+installTcrand() {
+  run_cmd "git clone https://github.com/afaji/tcrand $HOME/tcrand"
+  run_cmd "cp -r $HOME/tcrand/include/tcrand $HOME/tcframe/include"
+}
+
+while true; do
+  read -p "Do you want to download and install tcrand? (Y/n) " yn
+  case $yn in
+      [Yy]* ) installTcrand; break;;
+      [Nn]* ) break;;
+      * ) ;;
+  esac
+done
+
+if [ $need_reload -eq 1 ]
+then
+  echo "Installation complete! Please reload the terminal session."
+else
+  echo "Installation complete!"
+fi
 # ======================
